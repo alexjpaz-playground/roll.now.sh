@@ -19,6 +19,11 @@ jobs:
     steps:
       - checkout
 
+      - deploy:
+        command:
+          - now -t ${NOW_TOKEN} rm -y roll || echo "No deployments to remove"
+          - NOW_URL=$(now --public -t ${NOW_TOKEN}) && now -t ${NOW_TOKEN} alias set ${NOW_URL} roll.now.sh
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -36,12 +41,3 @@ jobs:
       # run tests!
       - run: yarn test
 
-
-
-
-machine:
-  node:
-    version: 6.0
-dependencies:
-  override:
-    - npm install --dev
