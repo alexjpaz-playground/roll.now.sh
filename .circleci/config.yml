@@ -19,10 +19,12 @@ jobs:
     steps:
       - checkout
 
-      - run: yarn install && yarn global add now
+      - run: yarn install
 
       - deploy:
           command: |
+            yarn add now
+            now () { .node_modules/.bin/now $@ }
             now -t ${NOW_TOKEN} rm -y roll || echo "No deployments to remove"
             NOW_URL=$(now --public -t ${NOW_TOKEN}) && now -t ${NOW_TOKEN} alias set ${NOW_URL} roll.now.sh
 
