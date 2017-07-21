@@ -19,6 +19,8 @@ jobs:
     steps:
       - checkout
 
+      - run: yarn install
+
       - deploy:
           command: |
             now -t ${NOW_TOKEN} rm -y roll || echo "No deployments to remove"
@@ -31,7 +33,6 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install
 
       - save_cache:
           paths:
