@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
 
-      - run: yarn install && yarn install -g now
+      - run: yarn install && yarn global add now
 
       - deploy:
           command: |
